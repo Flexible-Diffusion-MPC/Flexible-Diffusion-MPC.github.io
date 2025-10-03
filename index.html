@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Flexible Locomotion Learning with Diffusion Model Predictive Control">
+    <meta name="keywords" content="Robotics, Legged Locomotion, Diffusion, Model Predictive Control">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flexible Locomotion Learning with Diffusion Model Predictive Control</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/index.js"></script>
+
+    <link rel="icon" href="./icon.png">
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script type="text/javascript">
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['\\[', '\\]'], ['\\begin{equation}', '\\end{equation}']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script type="text/javascript" async src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+
+<body>
+
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+                        <h1 class="title is-1 publication-title">Flexible Locomotion Learning with Diffusion Model Predictive Control</h1>
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block">
+                                <a href="https://hrh6666.github.io/">Runhan Huang</a>&nbsp;&nbsp;</span>
+                            <span class="author-block">
+                  <a href="https://haldunbalim.github.io/">Haldun Balim</a>&nbsp;&nbsp;</span>
+                           <span class="author-block">
+                    <a href="https://hankyang.seas.harvard.edu/">Heng Yang</a>&nbsp;&nbsp;</span>
+                            <span class="author-block">
+                  <a href="https://yilundu.github.io/">Yilun Du</a><sup>†</sup>
+                </span>
+                            </span>
+                        </div>
+                        <div class="is-size-5 publication-authors">
+                            † Corresponding author
+                        </div>
+                        <!-- <div class="column">
+                            <image src="./static/images/logo.png" style="width:60%;"></image>
+                        </div> -->
+                        <div class="is-size-4 publication-authors">
+                            In Submission
+                        </div>
+                        <div class="column has-text-centered">
+                            <div class="publication-links">
+                                <!-- Appendix Link. -->
+                                <!-- <span class="link-block">
+                <a href="./resources/vr-robo-paper.pdf"
+                class="external-link button is-normal is-rounded is-dark" target="_blank">
+                <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                </span>
+                                <span>Appendix</span>
+                                </a>
+                                </span> -->
+                                <!-- PDF Link. -->
+                                <span class="link-block">
+                <a href="./resources/Diffusion-MPC-paper.pdf"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                                <span>Paper</span>
+                                </a>
+                                </span>
+                                <!-- arXiv Link. -->
+                                <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                                <span>arXiv</span>
+                                </a>
+                                </span>
+                                <!-- Video Link. -->
+                                <span class="link-block">
+                <a href="https://youtu.be/dl5fRNdwkfw?si=LtEqE_ZPj8GwTH9a"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                                <span>Video</span>
+                </a>
+                </span>
+                <!-- Bilibili Link. -->
+                <span class="link-block">
+                    <a href="#"
+                    class="external-link button is-normal is-rounded is-dark" target="_blank">
+                    <span class="icon">
+                        <i class="fab fa-youtube"></i>
+                    </span>
+                                    <span>Bilibili</span>
+                    </a>
+                </span>
+                                <!-- Poster Link. -->
+                                <!-- <span class="link-block">
+                <a href="./resources/poster-compressed.pdf"
+                    class="external-link button is-normal is-rounded is-dark" target="_blank">
+                    <span class="icon">
+                      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"	 viewBox="0 0 428.108 428.108" style="enable-background:new 0 0 428.108 428.108;" xml:space="preserve"><path fill="currentColor" id="XMLID_1137_" d="M236.503,387.867c0,3.866-3.134,7-7,7h-30.898c-3.866,0-7-3.134-7-7s3.134-7,7-7h30.898	C233.369,380.867,236.503,384,236.503,387.867z M314.878,144.35c0,12.285-4.131,23.625-11.076,32.702	c7.079,13.78,11.076,29.392,11.076,45.92c0,55.595-45.229,100.825-100.825,100.825c-55.595,0-100.825-45.23-100.825-100.825	c0-54.853,44.028-99.615,98.601-100.802c8.473-18.695,27.312-31.733,49.137-31.733C290.693,90.437,314.878,114.623,314.878,144.35z	 M221.054,144.35c0,22.008,17.904,39.913,39.912,39.913c9.671,0,18.551-3.458,25.466-9.202	c-14.213-21.399-37.658-36.167-64.602-38.569C221.32,139.033,221.054,141.661,221.054,144.35z M300.878,222.972	c0-12.638-2.715-24.655-7.591-35.498c-9.012,6.772-20.206,10.789-32.321,10.789c-29.728,0-53.913-24.186-53.913-53.913	c0-2.707,0.201-5.368,0.588-7.97c-44.893,3.293-80.413,40.872-80.413,86.592c0,47.876,38.949,86.825,86.825,86.825	S300.878,270.848,300.878,222.972z M300.878,144.35c0-22.008-17.904-39.913-39.912-39.913c-14.163,0-26.628,7.417-33.714,18.569	c28.1,3.689,52.593,18.996,68.486,40.923C299.01,158.141,300.878,151.46,300.878,144.35z M252.177,355.057h-76.244	c-3.866,0-7,3.134-7,7s3.134,7,7,7h76.244c3.866,0,7-3.134,7-7S256.043,355.057,252.177,355.057z M379.295,49.957v371.151	c0,3.866-3.134,7-7,7H55.813c-3.866,0-7-3.134-7-7V49.957c0-3.866,3.134-7,7-7h68.925l86.236-42.243	c1.943-0.951,4.216-0.951,6.159,0l86.236,42.243h68.925C376.161,42.957,379.295,46.09,379.295,49.957z M156.563,42.957h114.983	l-57.492-28.162L156.563,42.957z M365.295,56.957h-63.404c-0.098,0.003-0.196,0.003-0.296,0H126.514	c-0.099,0.002-0.198,0.002-0.296,0H62.813v357.151h302.482V56.957z"/><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>                    </span>
+                    <span>Poster</span>
+                </a>
+              </span> -->
+                                <!-- twitter Link. -->
+                                <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="fab fa-twitter"></i>
+                  </span>
+                                <span>Summary</span>
+                                </a>
+                                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                <a href="https://github.com/hrh6666/Flexible-Locomotion-Learning-with-Diffusion-Model-Predictive-Control"
+                   class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                                <span>Code(Coming Soon)</span>
+                </a>
+                </span>
+                            </div>
+                        </div>
+                        <div class="columns is-centered">
+                            <div class="column is-full-width is-centered has-text-centered">
+                                <figure>
+                                    <img src="./static/images/teaser.png" alt="figure1" style="width: 80%;">
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-full-width is-centered has-text-centered">
+                    <!-- <h2 class="title is-2" style="text-align: center;" id="method-video" >Real-World Robot Parkour Demos</h2> -->
+                    <div class="publication-video">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/dl5fRNdwkfw?si=Xv4_grX8ZqEuXi7Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <!-- Abstract. -->
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-2">Abstract</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                           Legged locomotion demands controllers that are both robust and adaptable, 
+                           while remaining compatible with task and safety considerations. 
+                           However, model-free reinforcement learning (RL) methods often yield a fixed policy 
+                           that can be difficult to adapt to new behaviors at test time. In contrast, 
+                           Model Predictive Control (MPC) provides a natural approach to flexible behavior 
+                           synthesis by incorporating different objectives and constraints directly into its 
+                           optimization process. However, classical MPC relies on accurate dynamics models, 
+                           which are often difficult to obtain in complex environments and typically require 
+                           simplifying assumptions. We present Diffusion-MPC, which leverages a learned generative 
+                           diffusion model as an approximate dynamics prior for planning, enabling flexible test-time 
+                           adaptation through reward and constraint based optimization. Diffusion-MPC jointly 
+                           predicts future states and actions; at each reverse step, we incorporate reward 
+                           planning and impose constraint projection, yielding trajectories that satisfy task 
+                           objectives while remaining within physical limits. To obtain a planning model that 
+                           adapts beyond imitation pretraining, we introduce an interactive training algorithm 
+                           for diffusion based planner: we execute our reward-and-constraint planner in environment, 
+                           then filter and reweight the collected trajectories by their realized returns before 
+                           updating the denoiser. Our design enables strong test-time adaptability, allowing the 
+                           planner to adjust to new reward specifications without retraining. We validate 
+                           Diffusion-MPC on real world, demonstrating strong locomotion and flexible adaptation.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="section">
+        <div class="container">
+            <h2 class="title is-2" style="text-align: center;">Method</h2>
+            <h2 class="title is-4" style="text-align: center;">Flexible Behavior Synthesis Through Sampling</h2>
+            
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <div class="content has-text-justified">
+                        <p>
+                            Rather than directly fitting an action only policy, our diffusion 
+                            model learns to jointly represent state transitions and action 
+                            proposals from large, heterogeneous datasets. This learned 
+                            generative prior then plays the role of the planner in an MPC 
+                            framework: during each planning cycle, trajectories are sampled 
+                            from the diffusion model and optimized with reward terms and 
+                            constraints, effectively performing model-based planning without 
+                            reliance on hand-crafted dynamics. In this view, diffusion models 
+                            are not just conditional generators, but expressive approximators 
+                            of environment dynamics that make tractable, flexible MPC possible. 
+                            Reward-based planning updates steer generated trajectories toward 
+                            task objectives, while feasibility is maintained through constraint 
+                            projection. Candidate ranking is then applied to further refine the 
+                            selected plan. Together, these mechanisms provide adaptability while 
+                            avoiding the need for simplified model designs required by MPC and 
+                            the rigidity of fixed RL policies.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="columns is-centered">
+                <div class="column is-four-fifths is-centered has-text-centered">
+                    <figure>
+                        <img src="./static/images/algorithm.png" alt="framework" style="width: 50%;">
+                    </figure>
+                </div>
+            </div>
+
+            <h2 class="title is-4" style="text-align: center;">Compositional Behavior Synthesis</h2>
+
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <div class="content has-text-justified">
+                        <p>
+                            Beyond planning with a single reward function, our framework also supports flexible skill composition through reward combination.  
+                            Let $\{R_i(\tau)\}_{i=1}^K$ denote a set of scalar task rewards, which may be either neural or analytic.  
+                            At deployment, the user specifies weights $\alpha \in \mathbb{R}^K$ to form a composite objective
+                        </p>
+
+                        <p style="text-align: center;">
+                            \[
+                            R_{\alpha}(\tau) = \sum_{i=1}^{K} \alpha_i\,R_i(\tau).
+                            \]
+                        </p>
+
+                        <p>
+                            By varying the weights $\alpha_i$, Diffusion MPC can seamlessly trade off between different objectives, synthesizing a diverse range of behaviors.  
+                            This includes not only behaviors represented in the dataset but also novel behaviors arising from new combinations of reward signals.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="title is-4" style="text-align: center;">Planner Learning with Environment Interaction</h2>
+
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <div class="content has-text-justified">
+                        <p>
+                            We propose a strategy to collect data and finetune the diffusion prior using trajectories generated by our model in an online interactive way.
+                            Let $(\tau^{(k)}, k, \epsilon)$ denote a standard denoising tuple constructed from a clean trajectory $\tau$ with forward noise $\epsilon \sim \mathcal{N}(0,I)$.
+                            Per-trajectory weights are defined from realized returns as
+                        </p>
+
+                        <p style="text-align: center;">
+                            \[
+                            w\!\left(R_r(\tau)\right)=\exp\!\left(\frac{R_r(\tau)}{T}\right),
+                            \]
+                        </p>
+
+                        <p>
+                            with $T>0$ as a temperature parameter. Here $R_r$ denotes the ground-truth return from the environment, analogous to the RL setting, rather than the reward model used during planning. To filter out low-return rollouts, we retain only the top-$K$ weights and set the rest to zero:
+                        </p>
+
+                        <p style="text-align: center;">
+                            \[
+                            w'(\tau) =
+                            \begin{cases}
+                            w(R_r(\tau)), & \tau \in \text{Top-}K, \\
+                            0, & \text{otherwise.}
+                            \end{cases}
+                            \]
+                        </p>
+
+                        <p style="text-align: center;">
+                            \[
+                            \bar w(\tau) = \frac{w'(\tau)}{\mathbb{E}[w'(\tau)]}.
+                            \]
+                        </p>
+
+                        <p>
+                            The resulting objective is
+                        </p>
+
+                        <p style="text-align: center;">
+                            \[
+                            \mathcal{L}_{\text{RWD}}(\theta)=\mathbb{E}\Big[\,\bar w\!\left(R_r(\tau)\right)\,\big\|\,\tau-\tau_{\theta}(\tau^{(k)},k)\big\|_2^2\Big],
+                            \]
+                        </p>
+
+                        <p>
+                            which performs exponentially tilted regression, biasing updates toward 
+                            higher-return trajectories.A replay buffer is maintained 
+                            that interleaves on-policy planner rollouts with previously collected trajectories, 
+                            preserving the coverage of prior experiences while nudging the model 
+                            toward reward-favored regions of the trajectory space.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="title is-4" style="text-align: center;">Real-time Planning</h2>
+
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <div class="content has-text-justified">
+                        <p>
+                            <strong>Asynchronous planning for real-time control.</strong>
+                            To meet high-rate locomotion requirements, we employ an asynchronous pipeline with planning horizon \(H\) and replan margin \(D\).
+                            At each timestep \(t\), the controller executes the next action from the current \(H\)-step plan \(a_{t:t+H-1}\).
+                            When the execution index reaches \(H{-}D\), we trigger replanning from the latest observation to synthesize a fresh \(H\)-step plan while continuing to execute the remaining \(D\) buffered actions from the old plan.
+                            Once these \(D\) actions have been applied, we time-align the new plan by skipping its first \(D\) actions and begin execution at offset \(D\).
+                            Equivalently, each action is computed \(D\) control cycles before it is applied (a \(D\)-step action buffer), which maintains real-time operation while preserving closed-loop feedback with period \(H{-}D\) steps.
+                        </p>
+
+                        <p>
+                            <strong>Caching early denoising.</strong> Successive plans generated by our model often produce nearly identical trajectories in early diffusion steps, as these steps primarily denoise without incorporating task-specific structure. To avoid redundant computation, we shift the existing plan across time steps and reuse it as the initialization for the next window, up to $m$ steps. This warm-start strategy preserves solution quality while substantially reducing inference cost.
+                        </p>
+
+                        <p>
+                            <strong>Sampler choice and step budget.</strong>
+                            DDIM offers faster, deterministic sampling at some cost in fidelity, while DDPM is slower but higher quality. The number of denoising steps controls the compute–quality trade-off. We use $10$ DDPM steps at inference and ablate both the training horizon and test-time step count.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="title is-2" style="text-align: center;">Experiments</h2>
+
+            <h2 class="title is-4" style="text-align: center;">Adaptation Performance of Diffusion-MPC Planner</h2>
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <div class="content has-text-justified">
+                        <p>
+                            For adaptation tasks, we consider locomotion tasks with objectives: 
+                            base height variation, joint limit restriction, energy saving, joint 
+                            acceleration/velocity regularization, and balancing. Metrics report 
+                            penalties for different task components, with each penalty type scaled 
+                            independently for clarity. Smaller penalties indicate closer adherence 
+                            to the desired behavior. Results are shown as a function of candidate 
+                            number (Cand), reward-based planning (R), and constraint enforcement (C).
+                        </p>
+                        </div>
+                </div>
+            </div>
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <div class="content has-text-justified">
+                        <figure>
+                            <img src="./static/images/adaptation-sim.png" alt="gd" style="width: 80%;">
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="title is-4" style="text-align: center;">Real-World Adaptation Tasks</h2>
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <div class="content has-text-justified">
+                        <p>
+                            Adaptation capability is evaluated across four representative tasks: energy saving, joint position regulation, height variation, and dynamic balancing. 
+                        </p>
+                        </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-two-thirds is-centered has-text-centered">
+                        <div class="publication-video">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/1LiJiqXsRXo?si=IvFLsGmcCFtAzsCC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6"></div>
+
+            <h2 class="title is-4" style="text-align: center;">Real-World Locomotion</h2>
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <div class="content has-text-justified">
+                        <p>
+                            Diffusion-MPC is evaluated on challenging real-world terrains, 
+                            including soft uneven grass with varying friction and a grass 
+                            slope with varying inclination. The planner is deployed in a 
+                            zero-shot manner without environment-specific retraining. A 
+                            neural-network-based foot-lifting reward model encourages stable 
+                            stepping on uneven surfaces, while a balancing reward enhances 
+                            stability during traversal. For slope locomotion, regularization 
+                            on the rear-calf joint position is applied adaptively: larger 
+                            angles are favored for ascending slopes to prevent backward 
+                            slipping, whereas smaller angles are encouraged for descending 
+                            slopes to maintain forward stability. These results highlight 
+                            that diffusion-based planning enables deployment in the wild, 
+                            providing both adaptability to diverse terrains and flexible 
+                            behavior modulation at test time.
+                        </p>
+                        </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-two-thirds is-centered has-text-centered">
+                        <div class="publication-video">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/SN8NT7BKmhY?si=obAkdfH71R7afE18" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-6"></div>
+
+            <h2 class="title is-4" style="text-align: center;">Interactive Learning Experiments</h2>
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <div class="content has-text-justified">
+                        <p>
+                            Our interactive learning algorithm enables a weak planner to be 
+                            finetuned into a robust controller, and further demonstrates 
+                            that even a planner trained entirely from scratch can acquire 
+                            effective behaviors. This highlights that diffusion-based 
+                            planning can be learned without dependence on demonstration data, 
+                            broadening its applicability in real-world settings.
+                        </p>
+                        </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-two-thirds is-centered has-text-centered">
+                        <div class="publication-video">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/D2vH4BZYzkU?si=lcf5LnroYoBBpZme" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+
+
+            <section class="section" id="BibTeX">
+                <div class="container content">
+                    <h2 class="title">BibTeX</h2>
+                    
+                    <!-- <pre><code>@article{huang2025moe,
+                            title={MoE-Loco: Mixture of Experts for Multitask Locomotion},
+                            author={Huang, Runhan and Zhu, Shaoting and Du, Yilun and Zhao, Hang},
+                            journal={arXiv preprint arXiv:2503.08564},
+                            year={2025}
+                    }
+                    </code></pre> -->
+                    <pre><code>Coming Soon
+                    </code></pre>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <div class="container">
+                    <div class="content has-text-centered">
+                        <p>Page template borrowed from <a href="https://nerfies.github.io/"><span class="dnerf">Nerfies</span></a>.</p>
+                    </div>
+                </div>
+            </footer>
+
+</body>
+
+</html>
